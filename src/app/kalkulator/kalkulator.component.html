@@ -1,0 +1,92 @@
+<div class="mb-3">
+    <label for="vrstaNekretnine" class="form-label">Vrsta nekretnine:</label>
+    <select id="vrstaNekretnine" class="form-select" [(ngModel)]="forma.vrstaNekretnine" name="vrstaNekretnine"
+    (change)="onVrstaNekretnineChange()">
+      <option *ngFor="let tip of vrsteNekretnina" [value]="tip">{{ tip }}</option>
+    </select>
+
+    <div *ngIf="!isNaUpit() && forma.vrstaNekretnine">
+<div class="mb-3">
+  <label for="kvadratura" class="form-label">Kvadratura (m²):</label>
+  <input type="number" id="kvadratura" class="form-control"
+         [(ngModel)]="forma.kvadratura" name="kvadratura" required>
+</div>
+
+<div class="mb-3">
+  <label for="vrstaCiscenja" class="form-label">Vrsta čišćenja:</label>
+  <select id="vrstaCiscenja" class="form-select"
+          [(ngModel)]="forma.vrstaCiscenja" name="vrstaCiscenja">
+    <option value="" disabled selected>-- Odaberi vrstu čišćenja --</option>
+    <option *ngFor="let vrsta of getVrsteCiscenja()" [value]="vrsta">{{ vrsta }}</option>
+</select>
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Dodatne usluge:</label>
+  
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="prozori"
+               [(ngModel)]="forma.dodatno.prozori" name="prozori">
+        <label for="prozori" class="form-check-label">Čišćenje prozora</label>
+      </div>
+      
+      <div *ngIf="forma.dodatno.prozori" class="mb-3 ms-3">
+        <label for="povrsinaProzora" class="form-label">Površina prozora (m²):</label>
+        <input type="number" id="povrsinaProzora" class="form-control"
+               [(ngModel)]="forma.dodatno.povrsinaProzora" name="povrsinaProzora">
+      </div>
+      
+
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="towelArt"
+               [(ngModel)]="forma.dodatno.towelArt" name="towelArt">
+        <label for="towelArt" class="form-check-label">Towel Art</label>
+      </div>
+      
+      <div *ngIf="forma.dodatno.towelArt" class="mb-3 ms-3">
+        <label for="brojKrevetaTowelArt" class="form-label">Broj kreveta za Towel Art:</label>
+        <input type="number" id="brojKrevetaTowelArt" class="form-control"
+               [(ngModel)]="forma.dodatno.brojKrevetaTowelArt" name="brojKrevetaTowelArt">
+      </div>
+      
+  
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="poklonPaketi"
+             [(ngModel)]="forma.dodatno.poklonPaketi" name="poklonPaketi">
+      <label for="poklonPaketi" class="form-check-label">Poklon paketi za goste</label>
+    </div>
+    <div *ngIf="forma.dodatno.poklonPaketi" class="mb-3 ms-3">
+        <label for="brojPoklonPaketa" class="form-label">Broj poklon paketa:</label>
+        <input type="number" id="brojPoklonPaketa" class="form-control"
+               [(ngModel)]="forma.dodatno.brojPoklonPaketa" name="brojPoklonPaketa">
+      </div>
+
+  
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="setPosteljine"
+               [(ngModel)]="forma.dodatno.setPosteljine" name="setPosteljine">
+        <label for="setPosteljine" class="form-check-label">Set posteljine</label>
+      </div>
+      
+      <div *ngIf="forma.dodatno.setPosteljine" class="mb-3 ms-3">
+        <label for="brojSetovaPosteljine" class="form-label">Broj setova posteljine:</label>
+        <input type="number" id="brojSetovaPosteljine" class="form-control"
+               [(ngModel)]="forma.dodatno.brojSetovaPosteljine" name="brojSetovaPosteljine">
+      </div>
+      
+  </div>
+  
+    </div>
+      <div *ngIf="isNaUpit()">
+        <p class="text-warning">Za ovu vrstu nekretnine cijena je dostupna samo na upit! <br>Molimo Vas da nas kontaktirate na <span>+385 95 832 4008</span></p>
+      </div>
+
+      <button class="btn btn-success" (click)="izracunaj()">Izračunaj</button>
+
+      <div *ngIf="cijena !== null">
+        <h4 class="mt-4">Ukupna cijena: {{ cijena }} €</h4>
+      </div>
+      
+      
+  </div>
+  
