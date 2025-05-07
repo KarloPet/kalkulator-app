@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { cjenik, CiscenjeTip } from '../cjenik'
 import { dodatneUslugeCjenik } from '../dodatneUsluge';
-import { lokacijeCjenik } from '../lokacije';
+import { lokacijeCjenik, Lokacija } from '../lokacije';
 
 @Component({
   selector: 'app-kalkulator',
@@ -14,7 +14,7 @@ import { lokacijeCjenik } from '../lokacije';
 })
 export class KalkulatorComponent {
 
-
+  lokacije: Lokacija[] = lokacijeCjenik;
 
   
   cijena: number | null = null;
@@ -29,7 +29,8 @@ export class KalkulatorComponent {
     'KUĆANSTVO SA UKUĆANIMA',
     'KAMP/MONTAŽNA KUĆICA',
     'POSLOVNI PROSTORI',
-    'ČIŠĆENJE NAKON RADOVA'
+    'ČIŠĆENJE NAKON RADOVA',
+    'ODRŽAVANJE STAMBENIH ZGRADA I STUBIŠTA'
   ];
 
   vrsteCiscenja = [
@@ -38,16 +39,13 @@ export class KalkulatorComponent {
     'GENERALNO'
   ];
 
-  lokacije = Object.entries(lokacijeCjenik).map(([naziv, cijena]) => ({
-    naziv,
-    cijena
-  }));
 
 
   forma = {
     vrstaNekretnine: '',
     kvadratura: null,
     vrstaCiscenja: '',
+    lokacija: null as Lokacija | null,
     dodatno: {
       towelArt: false,
       poklonPaketi: false,
@@ -63,9 +61,11 @@ export class KalkulatorComponent {
     }
   }
 
-  isNaUpit(): boolean {
-    return this.forma.vrstaNekretnine === 'POSLOVNI PROSTORI';
-  }
+    isNaUpit(): boolean {
+      const naUpit = ['POSLOVNI PROSTORI', 'ODRŽAVANJE STAMBENIH ZGRADA I STUBIŠTA'];
+      return naUpit.includes(this.forma.vrstaNekretnine);
+    }
+      
 
   getVrsteCiscenja(): string[] {
     const gostOpcije = [
@@ -108,6 +108,14 @@ export class KalkulatorComponent {
     }
 
     let ukupno = kvadratura * cijenaPoM2;
+
+    if (this.forma.lokacija) {
+      ukupno += this.forma.lokacija.cijena;
+    } else {
+      alert('Molimo odaberite lokaciju.');
+      return;
+    }
+    
 
 
     const poljaUsluga = [
@@ -177,11 +185,18 @@ export class KalkulatorComponent {
     return null;
   }
 
+  prikaziDodatneUsluge(): boolean {
+    return this.forma.vrstaNekretnine !== 'ČIŠĆENJE NAKON RADOVA' &&
+           this.forma.vrstaNekretnine !== 'KUĆANSTVO SA UKUĆANIMA';
+  }
+  
+
   resetirajFormu() {
     this.forma = {
       vrstaNekretnine: '',
       kvadratura: null,
       vrstaCiscenja: '',
+      lokacija: null,
       dodatno: {
         towelArt: false,
         poklonPaketi: false,

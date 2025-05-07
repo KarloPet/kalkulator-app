@@ -25,6 +25,17 @@
 </select>
 </div>
 
+<div class="mb-3">
+  <label for="lokacija" class="form-label">Lokacija objekta:</label>
+  <select id="lokacija" class="form-select" [(ngModel)]="forma.lokacija" name="lokacija">
+    <option value="" disabled selected>-- Odaberite lokaciju --</option>
+    <option *ngFor="let lok of lokacije" [ngValue]="lok">
+      {{ lok.naziv }}
+    </option>
+  </select>
+</div>
+
+
 
 <div class="mb-3">
     <label class="form-label">Dodatne usluge:</label>
@@ -42,7 +53,9 @@
                [(ngModel)]="forma.dodatno.povrsinaProzora" name="povrsinaProzora">
       </div>
       
+      <div *ngIf="prikaziDodatneUsluge()">
 
+      
       <div class="form-check">
         <input type="checkbox" class="form-check-input mb-2" id="towelArt"
                [(ngModel)]="forma.dodatno.towelArt" name="towelArt">
@@ -96,16 +109,17 @@
         <input type="number" id="brojSetovaPosteljine" class="form-control"
                [(ngModel)]="forma.dodatno.brojSetovaPosteljine" name="brojSetovaPosteljine">
       </div>
+      </div>
       
   </div>
   
     </div>
       <div *ngIf="isNaUpit()">
-        <p class="text-warning">Za ovu vrstu nekretnine cijena je dostupna samo na upit! <br>Molimo Vas da nas kontaktirate na <span>+385 95 832 4008</span></p>
+        <p class="tekstZaJavljanje">Za ovu vrstu nekretnine cijena je dostupna samo na upit! <br>Molimo Vas da nas kontaktirate na broj broj mobitela: <span class="brojTelefona">+385 95 832 4008</span> ili na mail: <span class="brojTelefona">svsakic&commat;gmail.com</span></p>
       </div>
 
       <div class="d-flex gap-3 flex-wrap">
-        <button class="btn btn-success" (click)="izracunaj()">Izračunaj</button>
+        <button class="btn btn-primary" (click)="izracunaj()" *ngIf="!isNaUpit()">Izračunaj</button>
         <button class="btn btn-outline-secondary" (click)="resetirajFormu()">Resetiraj</button>
       </div>
       

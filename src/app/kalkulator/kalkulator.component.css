@@ -1,3 +1,6 @@
+/* .brojTelefona {
+  color: red;
+}
 .textIspodDodatneUsluge {
   color: #6c757d;
 }
@@ -72,16 +75,153 @@ form, .mb-3 {
     border: 1px solid #7fb4ff;
   }
   
-  .text-warning {
+  .tekstZaJavljanje {
     background-color: #fff3cd;
     padding: 1rem;
     border-radius: 0.5rem;
     border: 1px solid #ffeeba;
-    color: #856404;
+    color: #000000;
   }
   
   @media (max-width: 768px) {
     .mb-3 {
+      padding: 1rem;
+    }
+  
+    button {
+      width: 100%;
+    }
+  }
+   */
+
+
+   :root {
+    --accent: #6366f1;
+    --accent-dark: #4f46e5;
+    --bg-light: #f9fafb;
+    --bg-card: #ffffff;
+    --text-main: #1f2937;
+    --text-muted: #6b7280;
+    --radius: 1rem;
+    --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease;
+  }
+  
+  body, .container {
+    background-color: var(--bg-light);
+    font-family: 'Segoe UI', sans-serif;
+    color: var(--text-main);
+  }
+  
+  .section-card {
+    background-color: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+    transition: var(--transition);
+  }
+  
+  .section-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(99, 102, 241, 0.1);
+  }
+  
+  h2, label {
+    color: var(--accent-dark);
+    font-weight: 600;
+  }
+  
+  input[type="number"],
+  select {
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #f9fafb;
+  }
+  
+  input:focus,
+  select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    outline: none;
+  }
+  
+  .form-check-input {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-top: 0.4rem;
+    accent-color: var(--accent);
+  }
+  
+  .btn-primary {
+    background: linear-gradient(to right, var(--accent), var(--accent-dark));
+    border: none;
+    padding: 0.8rem 1.6rem;
+    color: #000000;
+    font-weight: bold;
+    border-radius: 0.75rem;
+    transition: var(--transition);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  .btn-primary:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+  }
+  
+  .btn-outline-secondary {
+    border: 2px solid var(--accent-dark);
+    color: var(--accent-dark);
+    background-color: transparent;
+    border-radius: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+  }
+  
+  .btn-outline-secondary:hover {
+    background-color: black;
+    color: white;
+  }
+  
+  h4.mt-4 {
+    background-color: #eef2ff;
+    color: var(--accent-dark);
+    padding: 1.2rem;
+    border-radius: var(--radius);
+    text-align: center;
+    border: 1px solid #c7d2fe;
+  }
+  
+  .info-note {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+  
+  .tekstZaJavljanje {
+    background-color: #fef9c3;
+    border: 1px solid #facc15;
+    padding: 1.2rem;
+    border-radius: var(--radius);
+    color: #92400e;
+  }
+  
+  .brojTelefona {
+    color: var(--accent-dark);
+    font-weight: 600;
+  }
+  
+  .textIspodDodatneUsluge {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+  
+  @media (max-width: 768px) {
+    .section-card {
       padding: 1rem;
     }
   
