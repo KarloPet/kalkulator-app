@@ -1,7 +1,9 @@
+<div class="container">
 <div class="mb-3">
     <label for="vrstaNekretnine" class="form-label">Vrsta nekretnine:</label>
-    <select id="vrstaNekretnine" class="form-select" [(ngModel)]="forma.vrstaNekretnine" name="vrstaNekretnine"
+    <select id="vrstaNekretnine" class="form-select mb-4" [(ngModel)]="forma.vrstaNekretnine" name="vrstaNekretnine"
     (change)="onVrstaNekretnineChange()">
+    <option value="" disabled selected>-- Odaberi vrstu objekta --</option>
       <option *ngFor="let tip of vrsteNekretnina" [value]="tip">{{ tip }}</option>
     </select>
 
@@ -10,6 +12,8 @@
   <label for="kvadratura" class="form-label">Kvadratura (m²):</label>
   <input type="number" id="kvadratura" class="form-control"
          [(ngModel)]="forma.kvadratura" name="kvadratura" required>
+         <option value="" disabled selected>-- Unesi kvadraturu objekta --</option>
+
 </div>
 
 <div class="mb-3">
@@ -21,13 +25,15 @@
 </select>
 </div>
 
+
 <div class="mb-3">
     <label class="form-label">Dodatne usluge:</label>
   
     <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="prozori"
+        <input type="checkbox" class="form-check-input mb-4" id="prozori"
                [(ngModel)]="forma.dodatno.prozori" name="prozori">
         <label for="prozori" class="form-check-label">Čišćenje prozora</label>
+        <p class="textIspodDodatneUsluge">Prozori se naplaćuju po kvadratnom metru njihove površine.</p>
       </div>
       
       <div *ngIf="forma.dodatno.prozori" class="mb-3 ms-3">
@@ -38,9 +44,10 @@
       
 
       <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="towelArt"
+        <input type="checkbox" class="form-check-input mb-2" id="towelArt"
                [(ngModel)]="forma.dodatno.towelArt" name="towelArt">
         <label for="towelArt" class="form-check-label">Towel Art</label>
+        <p class="textIspodDodatneUsluge">Towel Art uključuje umjetničko slaganje ručnika i obračunava se po broju kreveta.</p>
       </div>
       
       <div *ngIf="forma.dodatno.towelArt" class="mb-3 ms-3">
@@ -51,9 +58,11 @@
       
   
     <div class="form-check">
-      <input type="checkbox" class="form-check-input" id="poklonPaketi"
+      <input type="checkbox" class="form-check-input mb-2" id="poklonPaketi"
              [(ngModel)]="forma.dodatno.poklonPaketi" name="poklonPaketi">
       <label for="poklonPaketi" class="form-check-label">Poklon paketi za goste</label>
+      <p class="textIspodDodatneUsluge">Poklon paketi namijenjeni su gostima i obračunavaju se po broju osoba u objektu.</p>
+
     </div>
     <div *ngIf="forma.dodatno.poklonPaketi" class="mb-3 ms-3">
         <label for="brojPoklonPaketa" class="form-label">Broj poklon paketa:</label>
@@ -61,11 +70,25 @@
                [(ngModel)]="forma.dodatno.brojPoklonPaketa" name="brojPoklonPaketa">
       </div>
 
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input mb-2" id="deluxePaketiZaGoste"
+               [(ngModel)]="forma.dodatno.deluxePaketiZaGoste" name="deluxePaketiZaGoste">
+        <label for="deluxePaketiZaGoste" class="form-check-label">Deluxe paketi za goste</label>
+        <p class="textIspodDodatneUsluge">Uključuju šampon, gel za tuširanje, pastu za zube, štapiće za uho, blazinicu, žilet i suvenir magnet – naplaćuju se po osobi.</p>
+
+      </div>
+      <div *ngIf="forma.dodatno.deluxePaketiZaGoste" class="mb-3 ms-3">
+          <label for="brojDeluxePaketZaGoste" class="form-label">Broj deluxe paketa za goste:</label>
+          <input type="number" id="brojDeluxePaketZaGoste" class="form-control"
+                 [(ngModel)]="forma.dodatno.brojDeluxePaketZaGoste" name="brojDeluxePaketZaGoste">
+        </div>
+
   
     <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="setPosteljine"
+        <input type="checkbox" class="form-check-input mb-2" id="setPosteljine"
                [(ngModel)]="forma.dodatno.setPosteljine" name="setPosteljine">
         <label for="setPosteljine" class="form-check-label">Set posteljine</label>
+        <p class="textIspodDodatneUsluge">Set uključuje čistu posteljinu za jednog gosta i naplaćuje se po broju kreveta.</p>
       </div>
       
       <div *ngIf="forma.dodatno.setPosteljine" class="mb-3 ms-3">
@@ -81,12 +104,17 @@
         <p class="text-warning">Za ovu vrstu nekretnine cijena je dostupna samo na upit! <br>Molimo Vas da nas kontaktirate na <span>+385 95 832 4008</span></p>
       </div>
 
-      <button class="btn btn-success" (click)="izracunaj()">Izračunaj</button>
-
-      <div *ngIf="cijena !== null">
-        <h4 class="mt-4">Ukupna cijena: {{ cijena }} €</h4>
+      <div class="d-flex gap-3 flex-wrap">
+        <button class="btn btn-success" (click)="izracunaj()">Izračunaj</button>
+        <button class="btn btn-outline-secondary" (click)="resetirajFormu()">Resetiraj</button>
       </div>
       
-      
+      <div *ngIf="cijena !== null">
+        <h4 class="mt-4">Ukupna cijena: {{ cijena }} €</h4>
+        <p class="text-muted info-note">
+          Prikazana cijena je informativnog karaktera. Finalna cijena može varirati.
+        </p>
+      </div>
+  </div>
   </div>
   
